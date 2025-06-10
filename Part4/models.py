@@ -17,4 +17,4 @@ class Board(db.Model):
     title = db.Column(db.String(100), nullable=False)
     content = db.Column(db.String(300), nullable=False)
     user_id = db.Column(db.Integer, db.ForeignKey('users.id'), nullable=False)
-    author = db.relationship('User', back_populates='boards', lazy='dynamic')
+    author = db.relationship('User', back_populates='boards')

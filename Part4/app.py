@@ -19,7 +19,10 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 
-# api.register_blueprint()
+from routes.board import board_blp
+api.register_blueprint(board_blp)
+from routes.users import users_blp
+api.register_blueprint(users_blp)
 
 from flask import render_template
 @app.route('/manage-boards')
