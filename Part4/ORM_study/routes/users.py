@@ -29,6 +29,25 @@ class UsersList(MethodView):
         return jsonify({'msg':'success'}), 201
 
 
-#API LIST
-# 1. 전체 유저 데이터 조회 get
-# 2. 유저 생성 post
+@users_blp.route('/<int:user_id>')
+class UserResource(MethodView):
+    def get(self, user_id):
+        user = User.query.get_or_404(user_id)
+        print(type(user))
+
+        return jsonify({'name':user.name,
+                        'email':user.email})
+
+    def put(self, user_id):
+        user = User.query.get_or_404(user_id)
+        data = request.get_json()
+        user.name = data['name']
+        user.email = data['email']
+        db.session.commit()
+        return jsonify({'msg':'success'}), 200
+
+    def delete(self, user_id):
+        user = User.query.get_or_404(user_id)
+        db.session.delete(user)
+        db.session.commit()
+        return jsonify({'msg':'success'}), 204

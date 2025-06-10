@@ -1,12 +1,14 @@
 from flask import Flask
 from flask_smorest import Api
 from db import db
+from flask_migrate import Migrate
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'mysql+pymysql://root:1234@localhost/oz'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
 db.init_app(app)
+migrate = Migrate(app, db)
 
 #   blueprint 설정
 
@@ -19,9 +21,9 @@ app.config["OPENAPI_SWAGGER_UI_URL"] = "https://cdn.jsdelivr.net/npm/swagger-ui-
 
 api = Api(app)
 
-from routes.board import board_blp
+from Part4.ORM_study.routes.board import board_blp
 api.register_blueprint(board_blp)
-from routes.users import users_blp
+from Part4.ORM_study.routes.users import users_blp
 api.register_blueprint(users_blp)
 
 from flask import render_template

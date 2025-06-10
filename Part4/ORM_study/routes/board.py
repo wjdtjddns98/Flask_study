@@ -26,7 +26,8 @@ class BoardList(MethodView):
                          "title":board.title,
                          "content":board.content,
                          "author_name":board.author.name,
-                         "author_email":board.author.email}
+                         "author_email":board.author.email,
+                         "user_id" : board.author.id}
                         for board in boards])
 
     def post(self):
